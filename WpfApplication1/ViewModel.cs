@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -15,7 +16,7 @@ namespace WpfApplication1
     {
         private Process proccess = new Process();
 
-        public Process Proccess { get { return proccess; } }
+        
 
         public command(SupportedProccess proccessName)
         {
@@ -24,12 +25,29 @@ namespace WpfApplication1
 
         public command(string path, string arg)
         {
+            if (!File.Exists(path))
+            {
+                throw new FileNotFoundException();
+            }
             this.proccess.StartInfo.FileName = path;
             this.proccess.StartInfo.Arguments = arg;
             this.proccess.StartInfo.UseShellExecute = false;
             this.proccess.StartInfo.RedirectStandardOutput = true;
             this.proccess.StartInfo.CreateNoWindow = true;
         }
+
+        public int TerminateCommand()
+        {
+            //this.p.OutputDataReceived -= p_OutputDataReceived;
+            this.proccess.CloseMainWindow();
+            this.proccess.Kill();
+            if (!this.proccess.HasExited)
+            {
+                MessageBox.Show("does not exied");
+            }
+            return proccess.ExitCode;
+        }
+
     }
 
     class ViewModel : DependencyObject
@@ -43,8 +61,6 @@ namespace WpfApplication1
 
         private void read()
         {
-
-
             p.StartInfo.FileName = "ping.exe";
             p.StartInfo.Arguments = "127.0.0.1 -t";
             p.StartInfo.UseShellExecute = false;
@@ -89,13 +105,9 @@ namespace WpfApplication1
         internal void close()
         {
             this.p.OutputDataReceived -= p_OutputDataReceived;
-            this.p.CloseMainWindow();
-            
-            //this.p.Close();
-            // this.p.Dispose();
-            
+            this.p.CloseMainWindow();            
             p.Kill();
-            while(!p.HasExited){
+            if(!p.HasExited){
                 MessageBox.Show("does not exied");
             }
             
