@@ -16,20 +16,13 @@ using System.Windows.Shapes;
 namespace WpfApplication1
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Page1.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ActionPage : Page
     {
-        public MainWindow()
+        public ActionPage()
         {
-            
             InitializeComponent();
-            this.DataContext = new ViewModel();
-        }
-
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            (this.DataContext as ViewModel).close();
         }
     }
 }

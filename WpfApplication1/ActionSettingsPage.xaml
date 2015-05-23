@@ -1,0 +1,24 @@
+﻿<Window x:Class="WpfApplication1.ActionSettingsPage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Action Settings Page" Height="350" Width="525"
+        Closing="Window_Closing">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="AUTO"/>
+        </Grid.RowDefinitions>
+        <StackPanel  Grid.Row="0" Orientation="Horizontal">
+            <Label Height="AUTO" Content="Path:" />
+            <TextBox Height="AUTO" Width="100"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <Label Height="AUTO" Content="Arguments:"/>
+            <TextBox Height="AUTO" Width="100"/>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <Button Content="Start" Command="{Binding Path=NavigationCommand}" Click="Button_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

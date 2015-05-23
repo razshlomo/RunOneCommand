@@ -68,15 +68,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ViewModel.cs" />
-    <Page Include="MainWindow.xaml">
+    <Compile Include="ActionPage.xaml.cs">
+      <DependentUpon>ActionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ActionPageVIewModel.cs" />
+    <Compile Include="ActionSettingsViewModel.cs" />
+    <Page Include="ActionSettingsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="ActionSettingsPage.xaml.cs">
+      <DependentUpon>ActionSettingsPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ActionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -121,6 +129,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Commands\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -7,23 +7,22 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows;
+using System.Windows.Input;
 
 namespace WpfApplication1
 {
     public enum SupportedProccess { Putty }
 
-    class command
+    class OneCommand
     {
         private Process proccess = new Process();
 
-        
-
-        public command(SupportedProccess proccessName)
+        public OneCommand(SupportedProccess proccessName)
         {
             var s = WpfApplication1.Properties.Settings.Default.puttyPath;
         }
 
-        public command(string path, string arg)
+        public OneCommand(string path, string arg)
         {
             if (!File.Exists(path))
             {
@@ -50,13 +49,15 @@ namespace WpfApplication1
 
     }
 
-    class ViewModel : DependencyObject
+    class ActionSettingsViewModel : DependencyObject
     {
         private Process p = new Process();
 
-        public ViewModel()
+        
+
+        public ActionSettingsViewModel()
         {
-            read();
+            
         }
 
         private void read()
@@ -99,17 +100,27 @@ namespace WpfApplication1
 
         // Using a DependencyProperty as the backing store for outputString.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty outputStringProperty =
-            DependencyProperty.Register("outputString", typeof(string), typeof(ViewModel), new PropertyMetadata(string.Empty));
+            DependencyProperty.Register("outputString", typeof(string), typeof(ActionSettingsViewModel), new PropertyMetadata(string.Empty));
 
 
         internal void close()
         {
             this.p.OutputDataReceived -= p_OutputDataReceived;
-            this.p.CloseMainWindow();            
-            p.Kill();
-            if(!p.HasExited){
-                MessageBox.Show("does not exied");
+            try
+            {
+                this.p.CloseMainWindow();
+                p.Kill();
+                if (!p.HasExited)
+                {
+                    MessageBox.Show("does not exied");
+                }
+
             }
+            catch(InvalidOperationException e)
+            {
+                return;
+            }
+
             
         }
     }
